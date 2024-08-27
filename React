@@ -1,0 +1,34 @@
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import * as monaco from 'monaco-editor';
+
+function App() {
+  // Sample YAML content
+  const yamlContent = `# Sample YAML content
+name: John Doe
+age: 30
+occupation: Developer`;
+
+  useEffect(() => {
+    // Ensure the element with id 'code' exists before applying colorization
+    const codeElement = document.getElementById('code');
+    if (codeElement) {
+      monaco.editor.colorizeElement(codeElement, {
+        language: 'yaml', // Specify YAML language
+      }).catch(err => console.error('Error colorizing code:', err));
+    }
+  }, []); // Empty dependency array ensures this runs once after the component mounts
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <pre id="code" style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px' }}>
+        <code>
+          {yamlContent}
+        </code>
+      </pre>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(<App />, rootElement);
